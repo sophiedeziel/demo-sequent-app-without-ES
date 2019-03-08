@@ -3,6 +3,6 @@ Rails.application.routes.draw do
 
   root 'registrations#new'
   resources :registrations, only: [:new, :create]
-  resources :subscriptions, only: [:new, :create, :delete]
+  resource :subscription, only: [:new, :create, :show, :delete]
   mount Sequent::Engine, at: '/sequent'
 end

@@ -7,7 +7,11 @@ class SubscriptionsController < ApplicationController
   def create
     @command = Subscription::SubscribeToPlan.new(permitted_params.merge(user_id: current_user.id))
     Sequent.command_service.execute_commands @command
-    redirect_to new_subscription_path
+    redirect_to subscription_path
+  end
+
+  def show
+    @events = Sequent::Core::EventRecord.where(aggregate_id: current_user.aggregate_id, event_type: ['Subscription::SubscriptionCreated', 'Billing::PaymentCaptured']).order(created_at: :desc)
   end
 
   private

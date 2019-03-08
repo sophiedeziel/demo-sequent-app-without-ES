@@ -16,8 +16,10 @@ module Account
       repository.create_event Account::SignedIn, user, { user_id: user.id }
     end
   end
+
+  Sequent.configure do |config|
+    config.command_handlers << Account::CommandHandlers.new
+  end
 end
 
-Sequent.configure do |config|
-  config.command_handlers << Account::CommandHandlers.new
-end
+

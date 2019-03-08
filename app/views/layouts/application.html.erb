@@ -9,7 +9,7 @@
 
     <title>Demo app using Sequent-Rails</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -21,15 +21,39 @@
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+      <![endif]-->
   </head>
   <body>
     <div class='container'>
-      <%= yield %>
+      <div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;">
+        <!-- Position it -->
+        <div style="position: absolute; top: 0; right: 0;">
+          <div class="toast"  data-autohide="false">
+            <div class="toast-header">
+              <strong class="mr-auto">Balance Updated</strong>
+              <small class="text-muted">11 mins ago</small>
+              <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="toast-body">
+              Your balance has been updated.
+            </div>
+          </div>
+        </div>
+        <%= yield %>
+      </div>
     </div>
 
     <!-- Including Bootstrap JS (with its jQuery dependency) so that dynamic components work -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.0/js/bootstrap.min.js"></script>
+    <script>
+      document.addEventListener("turbolinks:load", function() {
+        $('.toast').toast();
+        $('.toast').toast('show');
+        $('.toast').toast('show');
+      });
+    </script>
   </body>
 </html>
