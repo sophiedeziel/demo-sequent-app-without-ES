@@ -1,5 +1,4 @@
 class SubscriptionsController < ApplicationController
-  helper_method :current_user
 
   def new
   end
@@ -16,9 +15,6 @@ class SubscriptionsController < ApplicationController
 
   private
 
-  def current_user
-    @current_user ||= User.find_by(session: session[:user_session])
-  end
 
   def permitted_params
     params.require(:subscription).permit(:plan_id, :aggregate_id)

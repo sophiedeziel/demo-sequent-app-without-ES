@@ -9,7 +9,7 @@
       <% @events.each do |event| %>
         <li>
           <a href="#"><%= event.event_type %></a>
-          <a href="#" class="float-right"><%= event.created_at %></a>
+          <a href="#" class="float-right"><%= time_ago_in_words event.created_at %> ago</a>
           <div></div>
         </li>
       <% end %>
@@ -23,6 +23,7 @@
   ul.timeline {
     list-style-type: none;
     position: relative;
+    border-bottom: 2px solid #d4d9df;
   }
   ul.timeline:before {
     content: ' ';

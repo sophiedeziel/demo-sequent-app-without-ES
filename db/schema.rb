@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_08_164430) do
+ActiveRecord::Schema.define(version: 2019_03_08_201552) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,15 @@ ActiveRecord::Schema.define(version: 2019_03_08_164430) do
     t.index ["command_record_id"], name: "index_event_records_on_command_record_id"
     t.index ["created_at"], name: "index_event_records_on_created_at"
     t.index ["event_type"], name: "index_event_records_on_event_type"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "title"
+    t.string "content"
+    t.datetime "read_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "stream_records", force: :cascade do |t|

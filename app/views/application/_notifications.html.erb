@@ -1,0 +1,18 @@
+<div style="position: absolute; top: 0; right: 0;">
+  <% notifications.each do |notification| %>
+    <div class="toast"  data-autohide="false">
+      <div class="toast-header">
+        <strong class="mr-auto"><%= notification.title %></strong>
+        <small class="text-muted"><%= time_ago_in_words notification.created_at %> ago</small>
+        <%= link_to [notification, :mark_as_read], method: :put, remote: true do %>
+          <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        <% end %>
+      </div>
+      <div class="toast-body">
+        <%= notification.content %>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -4,5 +4,8 @@ Rails.application.routes.draw do
   root 'registrations#new'
   resources :registrations, only: [:new, :create]
   resource :subscription, only: [:new, :create, :show, :delete]
+  resources :notifications, only: [] do
+    put :mark_as_read
+  end
   mount Sequent::Engine, at: '/sequent'
 end

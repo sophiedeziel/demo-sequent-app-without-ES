@@ -28,5 +28,3 @@ module Billing
     config.command_handlers << Billing::CommandHandlers.new
   end
 end
-
-
