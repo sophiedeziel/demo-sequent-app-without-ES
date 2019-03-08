@@ -4,6 +4,6 @@ module Account
   end
 
   class SignedIn < Sequent::Event
-    attrs user_id: Integer
+    attrs user_id: Integer, session_id: String
   end
 end

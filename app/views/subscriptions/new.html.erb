@@ -1,0 +1,42 @@
+<h1>Welcome <%= current_user.fullname %>, </h1>
+
+<p>You should definetly subscribe to one of our awesome plans:</p>
+
+<div class="card text-white bg-info mb-3" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">$9.99 / stuff that happens</h5>
+    <p class="card-text">We offer things and stuff for your own convenience.</p>
+
+    <%= form_for :subscription, url: subscriptions_path, method: :post do |f| %>
+      <%= f.hidden_field :plan_id, value: 1 %>
+      <%= f.hidden_field :aggregate_id, value: current_user.aggregate_id %>
+      <%= f.submit "Subscribe", class: 'btn btn-light' %>
+    <% end %>
+  </div>
+</div>
+
+<div class="card text-white bg-success mb-3" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">$19.99 / stuff that happens</h5>
+    <p class="card-text">Everything included with the $99.99 plus some extras.</p>
+
+    <%= form_for :subscription, url: subscriptions_path, method: :post do |f| %>
+      <%= f.hidden_field :plan_id, value: 2 %>
+      <%= f.hidden_field :aggregate_id, value: current_user.aggregate_id %>
+      <%= f.submit "Get that one now!", class: 'btn btn-light' %>
+    <% end %>
+  </div>
+</div>
+
+<div class="card text-white bg-dark mb-3" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">$39.99 / stuff that happens</h5>
+    <p class="card-text">Everything included with the $199.99 with some icing on top.</p>
+
+    <%= form_for :subscription, url: subscriptions_path, method: :post do |f| %>
+      <%= f.hidden_field :plan_id, value: 3 %>
+      <%= f.hidden_field :aggregate_id, value: current_user.aggregate_id %>
+      <%= f.submit "OMG I need this so bad!", class: 'btn btn-light' %>
+    <% end %>
+  </div>
+</div>
