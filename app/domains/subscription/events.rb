@@ -4,6 +4,5 @@ module Subscription
   end
 
   class SubscriptionCancelled < Sequent::Event
-    attrs plan_id: Integer
   end
 end

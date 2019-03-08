@@ -1,8 +1,15 @@
-<h1>Hi <%= current_user.fullname %>, </h1>
+<div class="row  py-5">
+  <div class="col-md-12">
+    <h1>Hi <%= current_user.fullname %>, </h1>
 
-<h2>You have a balance of <strong>$<%= current_user.balance %></strong></h2>
+    <h2>You have a balance of <strong>$<%= current_user.balance %></strong></h2>
 
-<div class="row">
+    <%= link_to 'I wish to cancel my account.', subscription_path, method: :delete, class:"btn btn-danger" if current_user.plan_id %>
+
+  </div>
+</div>
+
+<div class="row py-5">
   <div class="col-md-8">
     <h4>History</h4>
     <ul class="timeline">
