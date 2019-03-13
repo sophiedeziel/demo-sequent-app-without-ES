@@ -9,6 +9,6 @@ class ApplicationController < ActionController::Base
   end
 
   def notifications
-    @notifications ||= Notification.where(user: current_user, read_at: nil)
+    @notifications ||= Notification.where(user_id: current_user&.id, read_at: nil)
   end
 end

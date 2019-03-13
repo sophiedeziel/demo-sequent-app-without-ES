@@ -1,20 +1,18 @@
-module Subscription
-  class CommandHandlers < Sequent::CommandHandler
+module SubscriptionDomain
+  class CommandHandlers < ApplicationCommandHandler
     on SubscribeToPlan do |command|
-      attributes = { plan_id: command.plan_id }
-      user = User.find_by(aggregate_id: command.aggregate_id)
-      user.update attributes
-      repository.create_event Subscription::SubscriptionCreated, user, attributes
+      attributes = { plan_id: command.plan_id, aggregate_id: command.aggregate_id, account_aggregate_id: command.account_aggregate_id }
+      subscription = Subscription.create(attributes)
+      repository.create_event SubscriptionCreated, subscription, attributes
     end
 
     on CancelSubscription do |command|
-      user = User.find_by(aggregate_id: command.aggregate_id)
-      user.update plan_id: nil
-      repository.create_event Subscription::SubscriptionCancelled, user
+      subscription = Subscription.find_by!(aggregate_id: command.aggregate_id)
+      subscription.update plan_id: nil
+      repository.create_event SubscriptionCancelled, user
     end
   end
-
-  Sequent.configure do |config|
-    config.command_handlers << Subscription::CommandHandlers.new
-  end
 end
+
+
+

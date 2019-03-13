@@ -1,4 +1,12 @@
-module Billing
+module BillingDomain
+  class BillingAccountCreated < Sequent::Event
+    attrs balance: BigDecimal, account_aggregate_id: String
+  end
+
+  class PaymentCaptured < Sequent::Event
+    attrs balance: BigDecimal
+  end
+
   class PaymentCaptured < Sequent::Event
     attrs amount: BigDecimal
   end

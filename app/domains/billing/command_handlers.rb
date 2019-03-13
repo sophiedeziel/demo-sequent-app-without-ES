@@ -1,30 +1,32 @@
-module Billing
-  class CommandHandlers < Sequent::CommandHandler
+module BillingDomain
+  class CommandHandlers < ApplicationCommandHandler
+    on CreateBillingAccount do |command|
+      attributes = { aggregate_id: command.aggregate_id, balance: 0, account_aggregate_id: command.account_aggregate_id }
+      account = BillingDomain::Account.create!(attributes)
+      repository.create_event BillingAccountCreated, account, attributes
+    end
+
     on Prepay do |command|
-      user = User.find_by(aggregate_id: command.aggregate_id)
+      account = BillingDomain::Account.find_by!(aggregate_id: command.aggregate_id)
 
       Rails.logger.info "Getting payment of #{command.amount} from fictional payment source"
-      repository.create_event Billing::PaymentCaptured, user, amount: command.amount
+      repository.create_event PaymentCaptured, account, amount: command.amount
 
-      attributes = { balance: command.amount }
-      user.update(attributes)
-      repository.create_event Billing::BalanceUpdated, user, attributes
+      attributes = { balance: account.balance + command.amount }
+      account.update(attributes)
+      repository.create_event BalanceUpdated, account, attributes
     end
 
     on PaybackBalance do |command|
-      user = User.find_by(aggregate_id: command.aggregate_id)
-      balance = user.balance
+      account = BillingDomain::Account.find_by!(aggregate_id: command.aggregate_id)
+      balance = account.balance
 
       Rails.logger.info "Reimbursing #{balance}"
-      repository.create_event Billing::ReimbursmentIssued, user, amount: balance
+      repository.create_event ReimbursmentIssued, user, amount: balance
 
-      attributes = { balance: 0 }
-      user.update(attributes)
-      repository.create_event Billing::BalanceUpdated, user, attributes
+      attributes = { balance: account.balance - command.amount }
+      account.update(attributes)
+      repository.create_event BalanceUpdated, account, attributes
     end
-  end
-
-  Sequent.configure do |config|
-    config.command_handlers << Billing::CommandHandlers.new
   end
 end

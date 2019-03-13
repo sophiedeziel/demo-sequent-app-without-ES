@@ -1,4 +1,4 @@
-module Account
+module AccountDomain
   class CreateAccount < Sequent::Command
     attrs email: String, fullname: String, password: Sequent::Secret
     validates_presence_of :email, :fullname, :password

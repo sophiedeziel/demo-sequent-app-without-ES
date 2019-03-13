@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_08_201552) do
+ActiveRecord::Schema.define(version: 2019_03_13_214443) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "billingdomain_accounts", force: :cascade do |t|
+    t.string "aggregate_id"
+    t.string "account_aggregate_id"
+    t.decimal "balance"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "command_records", force: :cascade do |t|
     t.string "user_id"
@@ -53,6 +61,33 @@ ActiveRecord::Schema.define(version: 2019_03_08_201552) do
     t.integer "snapshot_threshold"
     t.datetime "created_at", null: false
     t.index ["aggregate_id"], name: "index_stream_records_on_aggregate_id", unique: true
+  end
+
+  create_table "subscription_events", force: :cascade do |t|
+    t.string "subscription_id"
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "subscriptiondomain_subscriptions", force: :cascade do |t|
+    t.string "plan_id"
+    t.string "aggregate_id"
+    t.string "account_aggregate_id"
+    t.datetime "activated_at"
+    t.string "activated_by"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "subscriptions", force: :cascade do |t|
+    t.string "user_id"
+    t.integer "plan_id"
+    t.decimal "balance"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "aggregate_id"
+    t.string "billing_account_aggregate_id"
   end
 
   create_table "users", force: :cascade do |t|
