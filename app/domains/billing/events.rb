@@ -1,4 +1,4 @@
-module BillingDomain
+module Billing
   class BillingAccountCreated < Sequent::Event
     attrs balance: BigDecimal, account_aggregate_id: String
   end

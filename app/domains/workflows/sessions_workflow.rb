@@ -1,5 +1,5 @@
 class SessionsWorkflow < ApplicationWorkflow
-  on AccountDomain::SignedIn do |event|
+  on Account::SignedIn do |event|
 
   end
 end

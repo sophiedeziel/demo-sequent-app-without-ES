@@ -1,4 +1,4 @@
-module SubscriptionDomain
+module Subscription
   class SubscriptionCreated < Sequent::Event
     attrs plan_id: Integer, account_aggregate_id: String
   end

@@ -1,4 +1,4 @@
-module BillingDomain
+module Billing
   class CreateBillingAccount < Sequent::Command
     attrs account_aggregate_id: String
     def initialize(args = {})

@@ -1,11 +1,11 @@
 class ActivationWorkflow < ApplicationWorkflow
-  on BillingDomain::PaymentCaptured do |event|
+  on Billing::PaymentCaptured do |event|
     after_commit do
       #execute_commands Advertisement::LaunchCampaign.new
     end
   end
 
-  on SubscriptionDomain::SubscriptionCancelled do |event|
+  on Subscription::SubscriptionCancelled do |event|
     after_commit do
       #execute_commands Advertisement::CancelCampaign.new
     end

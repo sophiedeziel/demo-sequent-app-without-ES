@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   private
 
   def current_user
-    @current_user ||= User.find_by(session: session[:user_session])
+    @current_user ||= Account::User.find_by(session: session[:user_session])
   end
 
   def notifications

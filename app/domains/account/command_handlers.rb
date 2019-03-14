@@ -1,4 +1,4 @@
-module AccountDomain
+module Account
   class CommandHandlers < ApplicationCommandHandler
     on CreateAccount do |command|
       user = User.create!(command.attributes.slice(:email, :fullname, :password, :aggregate_id))

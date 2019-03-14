@@ -1,5 +1,6 @@
-module AccountDomain
+module Account
   class User < ApplicationRecord
-    validates_uniqueness_of :email
+    has_one :billing_account, primary_key: :aggregate_id, foreign_key: :account_aggregate_id, class_name: 'Billing::Account'
+    has_one :subscription, primary_key: :aggregate_id, foreign_key: :account_aggregate_id, class_name: 'Subscription::Subscription'
   end
 end

@@ -1,8 +1,8 @@
 class NotificationsWorkflow < ApplicationWorkflow
-  on BillingDomain::BalanceUpdated do |event|
+  on Billing::BalanceUpdated do |event|
 
-    billing_account = BillingDomain::Account.find_by!(aggregate_id: event.aggregate_id)
-    user = AccountDomain::User.find_by!(aggregate_id: billing_account.account_aggregate_id)
+    billing_account = Billing::Account.find_by!(aggregate_id: event.aggregate_id)
+    user = Account::User.find_by!(aggregate_id: billing_account.account_aggregate_id)
     Notification.create(
       title: 'You have a new balance',
       content: "Check out your new balance on the Subscription page",

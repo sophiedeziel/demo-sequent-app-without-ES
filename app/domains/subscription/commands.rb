@@ -1,4 +1,4 @@
-module SubscriptionDomain
+module Subscription
   class SubscribeToPlan < Sequent::Command
     attrs plan_id: Integer, account_aggregate_id: String
     validates_presence_of :plan_id, :account_aggregate_id

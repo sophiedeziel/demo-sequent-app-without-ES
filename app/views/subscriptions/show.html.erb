@@ -2,9 +2,9 @@
   <div class="col-md-12">
     <h1>Hi <%= current_user.fullname %>, </h1>
 
-    <h2>You have a balance of <strong>$<%= @subscription.balance %></strong></h2>
+    <h2>You have a balance of <strong>$<%= current_user.billing_account.balance %></strong></h2>
 
-    <%= link_to 'I wish to cancel my account.', subscription_path, method: :delete, class:"btn btn-danger" if current_user.plan_id %>
+    <%= link_to 'I wish to cancel my account.', subscription_path, method: :delete, class:"btn btn-danger" if current_user.subscription.plan_id %>
 
   </div>
 </div>
@@ -13,7 +13,7 @@
   <div class="col-md-8">
     <h4>History</h4>
     <ul class="timeline">
-      <% @subscription.events.each do |event| %>
+      <% @events.each do |event| %>
         <li>
           <a href="#"><%= event.event_type %></a>
           <a href="#" class="float-right"><%= time_ago_in_words event.created_at %> ago</a>
@@ -23,8 +23,6 @@
     </ul>
   </div>
 </div>
-
-
 
 <style>
   ul.timeline {

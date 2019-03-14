@@ -1,4 +1,4 @@
-module SubscriptionDomain
+module Subscription
   class Subscription < ActiveRecord::Base
 
   end
